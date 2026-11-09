@@ -1,0 +1,12 @@
+[
+    {
+        "test_case": "unregistered_email",
+        "email": "qa.invalid@example.com",
+        "password": "IncorrectPass123!"
+    },
+    {
+        "test_case": "incorrect_password",
+        "email": "edodestiny88@gmail.com",
+        "password": "IncorrectPass123!"
+    }
+]
