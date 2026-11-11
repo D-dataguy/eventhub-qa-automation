@@ -21,8 +21,15 @@ def test_invalid_login(page, test_data):
 
     login_page.enter_credentials(test_data["email"], test_data["password"])
 
-    login_page.submit_login()
+    with page.expect_response(
+        lambda response: (
+            "/api/auth/login" in response.url and response.request.method == "POST"
+        )
+    ) as response_info:
+        login_page.submit_login()
+    assert response_info.value.status == 400
 
+    print("LOGIN API RESPONSE:", response_info.value.text())
     expect(login_page.error_message).to_be_visible()
 
-    expect(page).to_have_url("https://eventhub.rahulshettyacademy.com/login")
+    expect(page).to_have_url(login_page.URL)
